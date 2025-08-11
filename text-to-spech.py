@@ -1,27 +1,43 @@
 import pyttsx3
-engine = pyttsx3.init() # object creation
 
-# RATE
-rate = engine.getProperty('rate')   # getting details of current speaking rate
-print (rate)                        # printing current voice rate
-engine.setProperty('rate', 155)     # setting up new voice rate
+# Initialize the TTS engine
+engine = pyttsx3.init()
 
-# VOLUME
-volume = engine.getProperty('volume')   # getting to know current volume level (min=0 and max=1)
-print (volume)                          # printing current volume level
-engine.setProperty('volume',1.0)        # setting up volume level  between 0 and 1
+# List all available voices
+voices = engine.getProperty('voices')
+print("Available Voices:\n")
+for idx, voice in enumerate(voices):
+    print(f"{idx}: {voice.name} ({voice.id}) - Lang: {voice.languages}")
 
-# VOICE
-voices = engine.getProperty('voices')       # getting details of current voice
-#engine.setProperty('voice', voices[0].id)  # changing index, changes voices. o for male
-engine.setProperty('voice', voices[1].id)   # changing index, changes voices. 1 for female
+# Choose a voice
+voice_index = int(input("\nEnter the voice index you want to use: "))
+engine.setProperty('voice', voices[voice_index].id)
 
-engine.say("Hello World!hi there nice to meet you. see you later")
-engine.say('My current speaking rate is ' + str(rate))
+# Set speaking rate
+rate = engine.getProperty('rate')
+print(f"\nCurrent speaking rate: {rate}")
+new_rate = input("Enter new speaking rate (leave blank to keep default): ")
+if new_rate.strip():
+    engine.setProperty('rate', int(new_rate))
+
+# Set volume
+volume = engine.getProperty('volume')
+print(f"Current volume: {volume} (0.0 to 1.0)")
+new_volume = input("Enter new volume (leave blank to keep default): ")
+if new_volume.strip():
+    engine.setProperty('volume', float(new_volume))
+
+# Enter text to speak
+text = input("\nEnter the text to speak: ")
+engine.say(text)
 engine.runAndWait()
-engine.stop()
 
-# Saving Voice to a file
-# On Linux, make sure that 'espeak-ng' is installed
-engine.save_to_file('hi there nice to meet you. see you later', 'test1.mp3')
-engine.runAndWait()
+# Save to file
+save_choice = input("Do you want to save this as an MP3? (y/n): ")
+if save_choice.lower() == "y":
+    filename = input("Enter filename (e.g., output.mp3): ")
+    engine.save_to_file(text, filename)
+    engine.runAndWait()
+    print(f"Saved as {filename}")
+
+print("\nDone!")
