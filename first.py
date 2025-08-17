@@ -20,3 +20,4 @@
 # print(character)
 name =input("Enter your name: ")
 print("Hello, " + name + "!")  # Greeting the user with their name
+print(f'Hi {name}!')
