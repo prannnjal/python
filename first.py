@@ -13,8 +13,10 @@
 # print("avg of d and e:", (d+e) /2)
 # print(square:=d**2)
 # print(type(square))
-name="pranjal"
-nameshort=name[2:6]
-print(nameshort)
-character= name[0]
-print(character)
+# name="pranjal"
+# nameshort=name[2:6]
+# print(nameshort)
+# character= name[0]
+# print(character)
+name =input("Enter your name: ")
+print("Hello, " + name + "!")  # Greeting the user with their name
