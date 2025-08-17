@@ -24,3 +24,4 @@
 name= "my name is  pranjal"
 print(name.find("  "))  # Finding the index of a space in the name
 print(name.replace("  ", " "))
+print(type(name))  # Checking the type of the name variable
